@@ -74,6 +74,10 @@ def main():
 		</form>
 		"""
 
+		print """
+		<p><a href="/cgi-bin/signup.py">Sign Up</a></p>
+		"""
+
 		print "</body></html>"
 
 main()

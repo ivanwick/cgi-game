@@ -39,6 +39,9 @@ def print_form(values):
 class GameAlreadyExists(Exception):
 	pass
 
+class GameVsSelf(Exception):
+	pass
+
 def main():
 	form = cgi.FieldStorage()
 
@@ -51,6 +54,10 @@ def main():
 		otherplayer = get_form_otherplayer(form)
 		# lookup will verify that otherplayer exists
 		otherplayer_info = user.find_info(user_data, otherplayer)
+
+		if (selfplayer == otherplayer):
+			raise GameVsSelf("""<p>
+			Choose a different player</p>""")
 
 		if game.exists(game_data, selfplayer, otherplayer):
 			raise GameAlreadyExists(
