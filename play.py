@@ -37,6 +37,7 @@ def print_header():
 	print "<h2>Game</h2>"
 
 def print_footer():
+	print """<a href="/cgi-bin/lobby.py">Back to Lobby</a>"""
 	print "</body></html>"
 
 def print_game_header(game_info):
@@ -53,7 +54,7 @@ def print_game_over(game_info, game_result):
 
 	print "<p>"
 	if game_result == None:
-		print "Tie"
+		print "Cat's game"
 	else:
 		print "Winner: "
 		print game_info["players"][game_result]

@@ -51,9 +51,9 @@ def main():
 		print "<html><body>"
 		print "<h2>Log In</h2>"
 
-		print "<pre>\n"
-		print user_data
-		print "</pre>"
+		#print "<pre>\n"
+		#print user_data
+		#print "</pre>"
 
 		if isinstance(ex, user.UnknownUser):
 			print "<p>Unknown username</p>"

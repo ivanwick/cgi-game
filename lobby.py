@@ -9,7 +9,7 @@ import game
 
 cgitb.enable()
 
-print "Content-Type: text/html\n\n"
+#print "Content-Type: text/html\n\n"
 
 def main():
 

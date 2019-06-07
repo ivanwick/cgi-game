@@ -86,19 +86,19 @@ def is_game_over(game_info):
 
 	for player_index in (0, 1):
 		for r in [0, 1, 2]:
-			if board[r][0] != None and \
+			if player_index == \
 			board[r][0] == board[r][1] == board[r][2]:
 				return (True, player_index)
 		for c in [0, 1, 2]:
-			if board[0][c] != None and \
+			if player_index == \
 			board[0][c] == board[1][c] == board[2][c]:
 				return (True, player_index)
 
-		if board[1][1] != None and \
+		if player_index == \
 		board[0][0] == board[1][1] == board[2][2]:
 			return (True, player_index)
 
-		if board[1][1] != None and \
+		if player_index == \
 		board[2][0] == board[1][1] == board[0][2]:
 			return (True, player_index)
 
