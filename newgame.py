@@ -11,7 +11,7 @@ import game
 
 cgitb.enable()
 
-print "Content-Type: text/html\n\n"
+#print "Content-Type: text/html\n\n"
 
 def get_form_otherplayer(form):
 	if "otherplayer" not in form:
@@ -47,28 +47,33 @@ def main():
 		user_data = data.read_users()
 		user_info = user.get_session_from_cookie(user_data)
 		game_data = data.read_games()
+		selfplayer = user_info["username"]
 		otherplayer = get_form_otherplayer(form)
+		# lookup will verify that otherplayer exists
 		otherplayer_info = user.find_info(user_data, otherplayer)
-		existing_game = game.find_game_with(game_data, user_info, otherplayer_info)
 
-		if existing_game:
+		if game.exists(game_data, selfplayer, otherplayer):
 			raise GameAlreadyExists(
-			"""<p><a href="/cgi-bin/game.py?otherplayer=%s">
-			Game with %s already exists</a></p>""" % (
+			"""<p><a href="/cgi-bin/play.py?p0=%s&p1=%s">
+			%s vs %s already exists</a></p>""" % (
+			cgi.escape(selfplayer, quote=True),
 			cgi.escape(otherplayer, quote=True),
+			cgi.escape(selfplayer, quote=True),
 			cgi.escape(otherplayer, quote=True)
 			))
 
-		game.create_new(game_data, user_info, otherplayer_info)
+		game.create_new(game_data, selfplayer, otherplayer)
 
 		data.write_games(game_data)
 
-		print "<pre>"
-		print game_data
-		print "</pre>"
+		#print "<pre>"
+		#print game_data
+		#print "</pre>"
 		print "Status: 302 Found"
-		print "Location: /cgi-bin/game.py?otherplayer=%s\n\n" % \
+		print "Location: /cgi-bin/play.py?p0=%s&p1=%s\n\n" % (
+			cgi.escape(selfplayer, quote=True),
 			cgi.escape(otherplayer, quote=True)
+			)
 	
 	except user.NotLoggedIn:
 		print "Content-Type: text/html\n\n"
